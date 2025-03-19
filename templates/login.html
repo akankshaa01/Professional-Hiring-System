@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block custom_styles %}  
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+<h2 class="text-center">Welcome back</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+ 
+    <!-- Username Field -->
+    
+    <div class="form-group mb-3">
+        <label for="username">Username</label>
+        {{ form.username(class="form-control", placeholder="Enter username") }}
+       {% if form.username.errors %}
+                <div class="text-danger">
+                    {{ form.username.errors[0] }}
+                </div>
+            {% endif %}
+    </div>
+    <!-- Password Field -->
+   <div class="form-group mb-3">
+    <label for="password">Password</label>
+    {{ form.password(class="form-control", placeholder="Enter your password") }}
+   
+    {% if form.password.errors %}
+        <div class="text-danger">
+            {{ form.password.errors[0] }}
+        </div>
+    {% endif %}
+</div>
+<button type="submit" class="button">Login</button>
+<center> <a href="{{url_for('register')}}"><p class="text-center" style="color: midnightblue; padding-top: 10px;" ><u>Dont have an account? Sign Up Now</u></p></a></center>
+</form>
+</div>
+
+{% endblock %}

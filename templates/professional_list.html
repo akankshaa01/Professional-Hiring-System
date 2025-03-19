@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block custom_styles %}  
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/style4.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Filter Section -->
+    <aside class="filter-section">
+        <h2>
+            <i class="fas fa-filter"></i> Filters
+        </h2>
+        <div class="category-filter">
+            {#<label for="categoryDropdown" class="dropdown-label">Category</label>#}
+            <select id="categoryDropdown" class="filter-dropdown" onchange="window.location.href=this.value;">
+                <option value="">Select Category</option>
+                <option value="{{ url_for('professional_list') }}">View All</option>
+                {% for category in categories %}
+                <option value="{{ url_for('professional_list', category_id=category.id) }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </aside>
+
+    <!-- Professional Cards Section -->
+    <main class="professional-list">
+        <div class="card-container">
+            {% for professional in professionals %}
+            <div class="professional-card">
+                <!-- Left: Profile Image -->
+                <div class="card-left">
+                    <img src="{{ url_for('static', filename='media/profile_pics/' + professional.profile_picture) }}" alt="Profile Picture" class="profile-pic">
+                </div>
+                <!-- Right: Information -->
+                <div class="card-right">
+                    <h4>{{ professional.name }}</h4>
+                    <small>{{ professional.category.name }}</small>
+                    <p class="bio">
+                        {% if professional.bio %}
+                        {{ professional.bio[:180] }}{% if professional.bio|length > 180 %}...{% endif %}
+                    {% else %}
+                        No bio available.
+                    {% endif %}
+                    </p>
+                    <a href="{{ url_for('professional_profile', professional_id=professional.id) }}" class="btn btn-primary">View Full Profile</a>
+                    <a href="{{ url_for('create_booking', professional_id=professional.id, category_id=professional.category.id) }}" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+</div>
+
+{% endblock %}

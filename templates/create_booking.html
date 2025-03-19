@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block custom_styles %}  
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Book a Service</h2>
+    <form method="POST" action="{{ url_for('create_booking', professional_id=professional.user_id, category_id=category.id) }}">
+        {{ form.hidden_tag() }}
+
+        <!-- Client ID (Hidden Field) -->
+        {{ form.client_id(class="form-control", id="client_id", type="hidden") }}
+
+        <!-- Client Username (Read-Only) -->
+        <div class="form-group">
+            <label for="client_name">Your Name</label>
+            <input type="text" class="form-control" id="client_name" value="{{ current_user.name }}" readonly>
+        </div>
+
+        <!-- Professional's Name (Read-Only) -->
+        <div class="form-group">
+            <label for="professional_name">Professional</label>
+            <input type="text" class="form-control" id="professional_name" value="{{ professional.name }}" readonly>
+        </div>
+
+       <!-- Category Name (Read-Only) -->
+       <div class="form-group">
+        <label for="category_name">Service Category</label>
+        <input type="text" class="form-control" id="category_name" value="{{ category.name }}" readonly>
+    </div>
+
+        <!-- Scheduled Time -->
+        <div class="form-group">
+            <label for="scheduled_time">Preferred Time</label>
+            {{ form.scheduled_time(class="form-control", id="scheduled_time", placeholder="Select a convenient date and time") }}
+        </div>
+
+        <!-- Message -->
+        <div class="form-group">
+            <label for="message">Message</label>
+            {{ form.message(class="form-control", id="message", placeholder="Add any specific details or requirements") }}
+        </div>
+
+         <!-- Submit Button -->
+         <div class="book-now-btn">
+            
+            <button type="submit" class="btn-book-now">Book Now</button>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

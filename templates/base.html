@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>
+      {% block title %}Professional Hiring System{% endblock %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    {% block custom_styles %}<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">{% endblock %}
+  
+    <style>
+      /* Flash message container at the bottom */
+      .flash-container {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 1050; /* Ensure it's above other elements */
+          width: 90%;
+          max-width: 500px;
+          text-align: center;
+      }
+
+      .flash-message {
+          display: none; /* Initially hidden */
+          animation: fadeInOut 5s forwards;
+      }
+
+      @keyframes fadeInOut {
+          0% { opacity: 0; transform: translateY(20px); }
+          10% { opacity: 1; transform: translateY(0); }
+          90% { opacity: 1; }
+          100% { opacity: 0; transform: translateY(20px); }
+      }
+  </style>
+
+  </head>
+  <body id="professional-view">
+
+<nav class="navbar navbar-expand-lg  custom-navbar">
+    <div class="container-fluid">
+
+      <a  class="navbar-brand" href="{{ url_for('home') }}">
+      <img src="{{ url_for('static', filename='images/logo.png') }}"alt="Logo" class="navbar-logo" >
+    </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse " id="navbarNav">
+        <ul class="navbar-nav ms-auto mb-lg-0 ">
+          <li class="nav-item">
+            <a class="nav-link  {% if request.endpoint == 'home' %}active{% endif %}"  href="{{url_for('home')}}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  {% if request.endpoint == 'professional_list' %}active{% endif %}"  href="{{url_for('professional_list')}}">Find Professionals</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  {% if request.endpoint == 'categories' %}active{% endif %}" href="{{url_for('categories')}}">Categories</a>
+          </li>
+         
+          {% if current_user.is_authenticated %}
+            
+            <li class="nav-item">
+              <a class="nav-link  {% if request.endpoint == 'bookings' %}active{% endif %}" href="{{url_for('bookings')}}">My Bookings</a>
+            </li>
+                               
+          {%  if current_user.user_type == 'admin'%}
+
+          <li class="nav-item">
+            <a class="nav-link  {% if request.endpoint == 'admin_dashboard' %}active{% endif %}" href="{{url_for('admin_dashboard')}}" >My Profile </a>
+            </li>
+
+            {%else%}
+
+          <li class="nav-item">
+          <a class="nav-link  {% if request.endpoint == 'user_dashboard' %}active{% endif %}" href="{{url_for('user_dashboard')}}" >My Profile </a>
+          </li>
+          {%endif%}
+          
+          
+          {#<li class="nav-item">
+            <a class="nav-link  {% if request.endpoint == 'contact' %}active{% endif %}" href="{{url_for('contact')}}">Contact Us</a>
+          </li>#}
+          <li class="nav-item">
+          <a class="nav-link  {% if request.endpoint == 'logout' %}active{% endif %}" href="{{url_for('logout')}}">Logout</a>
+          </li>
+          {% else %}
+          {#<li class="nav-item">
+            <a class="nav-link  {% if request.endpoint == 'contact' %}active{% endif %}" href="{{url_for('contact')}}">Contact Us</a>
+          </li>#}
+            <a class="nav-link  {% if request.endpoint == 'login' %}active{% endif %}" href="{{url_for('login')}}">Login</a>
+         {% endif %}   
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+ 
+    {% block content  %}
+       
+    {%endblock%}
+    <div class="flash-container">
+      {% with messages = get_flashed_messages(with_categories=True) %}
+          {% if messages %}
+              {% for category, message in messages %}
+                  <div class="alert alert-{{ category }} flash-message">
+                      {{ message }}
+                  </div>
+              {% endfor %}
+          {% endif %}
+      {% endwith %}
+  </div>
+    <footer id="footer">
+        <footer class="container-footer">
+          <ul class="nav navbaar-nav-f justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item-f"><a class="fa" href="{{url_for('home')}}" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item-f"><a class="fa" href="{{url_for('categories')}}" class="nav-link px-2 text-muted">Categories</a></li>
+            <li class="nav-item-f"><a class="fa" href="{{url_for('about')}}" class="nav-link px-2 text-muted">About</a></li>
+            <li class="nav-item-f"><a class="fa" href="{{url_for('professional_list')}}" class="nav-link px-2 text-muted">Find Professionals</a></li>
+            <li class="nav-item-f"><a class="fa" href="{{url_for('login')}}" class="nav-link px-2 text-muted">Login</a></li>
+          </ul>
+          <p class="text-center fa" >© 2024 Professional Hiring System, Inc</p>
+        </footer>
+    
+      </footer>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <script>
+        // Automatically display flash messages and fade them out
+        document.addEventListener('DOMContentLoaded', () => {
+            const messages = document.querySelectorAll('.flash-message');
+            messages.forEach((msg) => {
+                msg.style.display = 'block'; // Show the flash message
+            });
+
+            // Optional: Remove flash messages from the DOM after animation ends
+            setTimeout(() => {
+                messages.forEach((msg) => msg.remove());
+            }, 5000); // Adjust the duration as needed (5 seconds here)
+        });
+    </script>
+    </body>
+    </html>

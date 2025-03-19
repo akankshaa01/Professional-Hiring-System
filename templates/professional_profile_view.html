@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block custom_styles %}  
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/style5.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="profile-container">
+        <div class="sidebar">
+            <div class="profile-img-container">
+                <img src="{{ url_for('static', filename='media/profile_pics/' + professional.profile_picture) }}" alt="{{ professional.name }}'s Profile Picture" class="profile-img">
+            </div>
+            <h3>{{ professional.name }}</h3>
+            <p class="category">{{ professional.category.name }}</p>
+            <p class="contact"><strong>Email:</strong> {{ professional.email }}</p>
+            <p class="contact"><strong>Phone:</strong> {{ professional.phone_number }}</p>
+        </div>
+
+        <div class="profile-details">
+            <div class="section about">
+                <h2>About</h2>
+                <p>{{ professional.bio }}</p>
+            </div>
+
+            <div class="section personal-info">
+                <h2>Personal Info</h2>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ professional.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date of Birth</th>
+                        <td>{{ professional.date_of_birth }}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{ professional.address }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ professional.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td>{{ professional.phone_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td>{{ professional.gender }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section work-info">
+                <h2>Work Info</h2>
+                <table>
+                    <tr>
+                        <th>Category</th>
+                        <td>{{ professional.category.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Experience</th>
+                        <td>{{ professional.experience }} years</td>
+                    </tr>
+                    <tr>
+                        <th>Availability Status</th>
+                        <td>{{ professional.availability_status }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Bookings Completed</th>
+                        <td>{{ professional.total_bookings_completed }}</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Book Now Button -->
+        <div class="book-now-btn">
+            <a href="{{ url_for('create_booking', professional_id=professional.id, category_id=professional.category_id) }}" class="btn-book-now">Book Now</a>
+        </div>
+        </div>
+    </div>
+    
+      
+    {%endblock%}

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block custom_styles %}  
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<h1 class="text-center">Create an account</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+ 
+    <!-- Username Field -->
+    
+    <div class="form-group mb-3">
+        <label for="username">Username</label>
+        {{ form.username(class="form-control", placeholder="Enter username") }}
+       {% if form.username.errors %}
+                <div class="text-danger">
+                    {{ form.username.errors[0] }}
+                </div>
+            {% endif %}
+    </div>
+     <!-- First Name Field -->
+     <div class="form-group mb-3">
+        <label for="name">Full Name</label>
+        {{ form.name(class="form-control", placeholder="Enter your name") }}
+        {% if form.name.errors %}
+            <div class="text-danger">
+                {{ form.name.errors[0] }}
+            </div>
+        {% endif %}
+    </div>
+
+      <!-- Email Field -->
+      <div class="form-group mb-3">
+        <label for="email">Email</label>
+        {{ form.email(class="form-control", placeholder="Enter your email address ") }}
+       
+        {% if form.email.errors %}
+            <div class="text-danger">
+                {{ form.email.errors[0] }}
+            </div>
+        {% endif %}
+    </div>
+
+   <!-- Password Field -->
+   <div class="form-group mb-3">
+    <label for="password">Password</label>
+    {{ form.password(class="form-control", placeholder="Enter your password") }}
+   
+    {% if form.password.errors %}
+        <div class="text-danger">
+            {{ form.password.errors[0] }}
+        </div>
+    {% endif %}
+</div>
+    <!-- Confirm Password Field -->
+        <div class="form-group mb-3">
+            <label for="confirm_password">Confirm Password</label>
+            {{ form.confirm_password(class="form-control", placeholder="Confirm password") }}
+            
+            {% if form.confirm_password.errors %}
+                <div class="text-danger">
+                    {{ form.confirm_password.errors[0] }}
+                </div>
+            {% endif %}
+        </div>
+
+    <!-- User Type Field -->
+    <div class="form-group mb-3">
+        <label for="user_type">Register as</label>
+        <select name="{{ form.user_type.name }}" id="user_type" class="form-control">
+            <option value="" disabled selected>Choose account type</option>
+            {% for choice in form.user_type.choices %}
+                <option value="{{ choice[0] }}" {% if choice[0] == form.user_type.data %} selected {% endif %}>
+                    {{ choice[1] }}
+                </option>
+            {% endfor %}
+        </select>
+        {% if form.user_type.errors %}
+            <div class="text-danger">
+                {{ form.user_type.errors[0] }}
+            </div>
+        {% endif %}
+    </div>
+
+    <button type="submit" class="button">Sign Up</button>
+    <center> <a href="{{url_for('login')}}"><p class="text-center" style="color: midnightblue; padding-top: 10px;" ><u>Already have an account? Login </u></p></a></center>
+</form>
+</div>
+{% endblock %}

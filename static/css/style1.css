@@ -1,0 +1,117 @@
+body{
+    font-family:Arial,san-serif;
+    margin:0;
+    /* padding-top:80px; */
+    height:100%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat; 
+    /* background-image: url('/static/images/image_9.jpg'); */
+}
+
+.content {
+    flex-grow: 1;
+    min-height: calc(100vh - 200px);
+}
+.container{
+    max-width:700px;
+    margin:auto;
+    margin-top: 75px;
+    margin-bottom: 100px;
+    padding:20px;
+    background-color: rgba(250, 246, 246, 0.795);
+    border-radius:5px;
+    box-shadow: 0 0 10px rgba(41, 9, 9, 0.1);
+}
+.container-edit{
+    max-width:700px;
+    margin:auto;
+    margin-top: 36px;
+    margin-bottom: 100px;
+    padding:20px;
+    background-color: rgba(250, 246, 246, 0.795);
+    border-radius:5px;
+    box-shadow: 0 0 10px rgba(41, 9, 9, 0.1);
+}
+.form-group{
+    margin-bottom: 15px;
+}
+label{
+    display:block;
+    margin-bottom: 5px;
+}
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.button {
+    background-color:#002349;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.button:hover {
+    background-color: #1a3b6c;
+}
+
+.custom-navbar{
+    margin-bottom:20px;
+    border-bottom: 1px solid transparent;
+}
+#footer{
+    background-color:#002349;
+    text-align: center;
+}
+.container-footer{
+    padding-top:20px;
+    padding-bottom:20px;
+    box-sizing: border-box;
+    margin-bottom:0px;
+}
+.fa{
+    color: white;
+}
+li {
+    margin-right: 30px;
+ }
+
+
+.book-now-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.btn-book-now {
+    padding: 7px 15px;
+    background-color: #002349;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+    font-weight: bold;
+    border:none;
+}
+
+.btn-book-now:hover {
+    background-color: #1a3b6c;
+}
+.text-heading{
+    color: #002349;
+    margin-top: 8px;
+    margin-bottom: 3px;
+}
+.form-header{
+    /* background-color: #002349; */
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #002349;
+    font-weight: 500;
+    text-decoration: underline;
+}

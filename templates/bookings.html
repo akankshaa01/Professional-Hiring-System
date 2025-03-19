@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block custom_styles %}
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/style6.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <center><h2>My Bookings</h2></center>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Booking No.</th> <!-- Serial Number -->
+                {% if user_type == 'client' %}
+                    <th>Professional Name</th>
+                {% elif user_type == 'professional' %}
+                    <th>Client Name</th>
+                {% endif %}
+                <th>Category</th>
+                <th>Booking Date</th>
+                <th>Requested Date</th>
+                <th>Message</th>
+                <th>Status</th>
+                {% if user_type == 'professional' %}
+                    <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% if bookings %}
+                {% for booking in bookings %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        {% if user_type == 'client' %}
+                            <td>{{ booking.professional.name }}</td>
+                        {% elif user_type == 'professional' %}
+                            <td>{{ booking.client.name }}</td>
+                        {% endif %}
+                        <td>{{ booking.category.name }}</td>
+                        <td>{{ booking.created_at }}</td>
+                        <td>{{ booking.scheduled_time }}</td>
+                        <td>{{ booking.message }}</td>
+                        <td>{{ booking.status }}</td>
+                        {% if user_type == 'professional' %}
+                            <td>
+                                <form method="POST" action="{{ url_for('bookings') }}">
+                                    {{ form.hidden_tag() }}
+                                    <input type="hidden" name="booking_id" value="{{ booking.id }}">  <!-- Hidden input for booking ID -->
+                                   
+                                    <select name="status" class="form-control">
+                                        <option value="pending" {% if booking.status == "pending" %}selected{% endif %}>Pending</option>
+                                        <option value="accepted" {% if booking.status == "accepted" %}selected{% endif %}>Accepted</option>
+                                        <option value="rejected" {% if booking.status == "rejected" %}selected{% endif %}>Rejected</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary btn-sm mt-2">Update</button>
+                                </form>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="8" class="text-center">No booking requests found.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

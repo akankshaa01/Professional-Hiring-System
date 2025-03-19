@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Professional</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.category.name }}</td>
+            <td>{{ booking.professional.name }}</td>
+            <td>{{ booking.booking_date }}</td>
+            <td>{{ booking.booking_time }}</td>
+            <td>{{ booking.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{url_for('edit_profile')}}">edit profile</a>
+
+{%endblock%}

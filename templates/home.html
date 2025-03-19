@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div id="carouselExampleCaptions" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    {#<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>#}
+  </div>
+
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{{ url_for('static', filename='images/image_8.jpg') }}" class="d-block w-100 img-filter" alt="...">
+      <div class="container">
+      <div class="carousel-caption d-none d-md-block content">
+        <h5>Unlock Your Home's Potential - Join Us Today!</h5>
+        <p>Whether you're planning a home renovation or need expert services, signing up is your first step. Get access to a network of trusted professionals, easy booking, and a seamless experience—all in one place!
+        </p>
+        <a href="{{ url_for('register') }}" class="button2-link">
+        <button class="button2"> Start Your Journey</button></a>
+      </div>
+    </div>
+    </div>
+
+    <div class="carousel-item">
+      <img src="{{ url_for('static', filename='images/image_6.jpg') }}" class="d-block w-100 img-filter" alt="...">
+      <div class="container">
+          <div class="carousel-caption d-none d-md-block content">
+        <h5>Find the Right Professionals for Your Project</h5>
+        <p>Browse through our diverse categories of home services, from interior design to plumbing. Choose the perfect professional based on their experience, ratings, and portfolio—making sure your project is in expert hands!
+        </p>
+        <a href="{{ url_for('professional_list') }}" class="button2-link">
+        <button class="button2">Explore Professionals</button></a>
+      </div>
+      </div>
+    </div>
+    
+    {#<div class="carousel-item">
+      <img src="{{ url_for('static', filename='images/image_7.jpg') }}" class="d-block w-100 img-filter" alt="...">
+       <div class="container">
+        <div class="carousel-caption d-none d-md-block content">
+        <h5>Reliable Reviews & Ratings</h5>
+        <p> Get honest feedback from previous clients. Our review system helps you make informed decisions by seeing ratings and reviews from others who have worked with the professionals.
+        </p>
+        <button class="button2">See Reviews</button>
+
+      </div>
+      </div>
+    </div>#}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<section class="about-us">
+  <div class="container">
+    <div class="about-image">
+      <img src="{{ url_for('static', filename='images/image_4.webp') }}" alt="About Us Image">
+    </div>
+    <div class="about-text">
+      <h2>Connecting You with Experts to Build Your Dream Home</h2>
+      <p>
+        Welcome to Home Connect! We make finding and booking skilled professionals for your home projects effortless. From trusted engineers and architects to skilled handymen and designers, our platform connects you with top-rated experts who are passionate about bringing your ideas to life. Whether you're planning a major renovation or need quick fixes, we're here to simplify the process with quality, convenience, and peace of mind. Discover the future of home service today!
+        <div>
+          <a href="/about" class="read-more-button">Read More</a>
+          </div>   
+      </p>
+    </div>
+    
+  </div>
+</section>
+
+<div class="heading text-center">
+  <h1>How Home Connect Works</h1>
+</div>
+
+
+<div class="row1  g-4 mx-5 my-3">
+  <div class=" col1 col-12 col-md-6 col-lg-4">
+    <div class="card ">
+      <img src="{{ url_for('static', filename='images/image_1.jpg') }}" class="card-img-top fixed-image " alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Search for Services</h5>
+        <p class="card-text">Browse through various categories to find the professional services that best suit your home needs.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col1 col-12 col-md-6 col-lg-4">
+    <div class="card">
+      <img src="{{ url_for('static', filename='images/image_2.png') }}" class="card-img-top fixed-image " alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Choose a Professional</h5>
+        <p class="card-text">Review professionals’ profiles, their expertise, and ratings to make an informed choice.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col1 col-12 col-md-6 col-lg-4">
+    <div class="card">
+      <img src="{{ url_for('static', filename='images/image_3.webp') }}" class="card-img-top fixed-image " alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Book an Appointment</h5>
+        <p class="card-text">Easily book your chosen professional and get ready for top-notch service at your convenience.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="heading text-center">
+  <h1>Find Services you can Request</h1>
+</div>
+<div class="container-lg">
+  <div class="row row-cols-2 row-cols-md-3 g-4 m-15 ">
+    {% for category in categories %}
+    <div class="col">
+      <div class="card text-center">
+        <img src="{{ url_for('static', filename=category.image) }}" class="card-img-top fixed-image " alt="{{ category.name }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ category.name }}</h5>
+          <p class="card-text">{{category.description}}</p>
+          <a href="{{ url_for('professional_list', category_id=category.id) }}" class="button">Explore</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<a href="{{ url_for('categories') }}">
+  <button class="button3">View All Categories</button>
+</a>
+
+
+<div class="heading text-center ">
+  <h1>Why choose us</h1>
+  <p>Discover why our platform is the best choice for connecting with trusted professionals who can help you with all your home service needs.</p>
+</div>
+
+<div class="row row-cols-2 row-cols-md-4 g-4  mx-5  column-gap-0">
+  <div class="col">
+    <div class="card2 text-center ">
+      <div class="img-cont">
+        <img src="{{ url_for('static', filename='images/icon_1.png') }}" class="card-img-top2 fixed-image-1" alt="..."></div>
+      <div class="card-body">
+        <h6 class="card-title-1 ">Expert Professionals at Your Service</h6>
+        <p class="card-text">Our professionals are thoroughly vetted and have extensive experience in their respective fields. Rest assured, you'll receive top-notch service, every time.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card2 text-center ">
+      <div class="img-cont">
+        <img src="{{ url_for('static', filename='images/icon_3.png') }}" class="card-img-top2  fixed-image-1" alt="..."></div>
+      <div class="card-body">
+        <h6 class="card-title-1 ">Comprehensive Services for Every Need</h6>
+        <p class="card-text">Whether it's home repairs, need legal advice, or interior design, we cover a wide range of services to meet all your home improvement needs—all in one place.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card2 text-center ">
+      <div class="img-cont">
+        <img src="{{ url_for('static', filename='images/icon_4.png') }}" class="card-img-top2  fixed-image-1" alt="..."></div>
+      <div class="card-body">
+        <h6 class="card-title-1 ">Effortless and User-Friendly Platform</h6>
+        <p class="card-text">Our easy-to-use platform allows you to seamlessly search, book, and manage your services. With just a few clicks, you can connect with the right professional for your project.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card2 text-center ">
+      <div class="img-cont">
+      <img src="{{ url_for('static', filename='images/icon_6.png') }}" class="card-img-top2 fixed-image-1" alt="..."></div>
+      <div class="card-body">
+        <h6 class="card-title-1">Support Local Experts</h6>
+        <p class="card-text">By choosing our platform, you're supporting local professionals who are knowledgeable about your area, ensuring personalized and reliable service for your specific needs.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="cta-section">
+  <div class="container text-center">
+    <h2 class="cta-heading">Are You Ready to Build Your Dream Home?</h2>
+    <p class="cta-description">Connect with skilled professionals and take the first step towards your ideal home.</p>
+    <a href="{{ url_for('register') }}" class="button4">Sign Up Now</a>
+  </div>
+</section>
+
+   
+{%endblock%}

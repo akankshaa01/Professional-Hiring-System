@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block custom_styles %}
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/style7.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <h2>Admin Panel</h2>
+            <ul>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#manage-users">Manage Users</a></li>
+                <li><a href="#manage-categories">Manage Categories</a></li>
+                <li><a href="#manage-bookings">Manage Bookings</a></li>
+               
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header>
+                <h1>Welcome, Admin</h1>
+                {#<div class="header-options">
+                    <input type="text" placeholder="Search...">
+                    <a href="#profile" class="icon">👤</a>
+                </div>#}
+            </header>
+
+            <!-- Dashboard Overview -->
+            <section class="dashboard-overview">
+                <div class="card">Total Users: <strong>{{ total_users }}</strong></div>
+                <div class="card">Total Bookings: <strong>{{ total_bookings }}</strong></div>
+                <div class="card">Total Categories: <strong>{{ total_categories }}</strong></div>
+            
+            </section>
+
+             <!-- Manage Users -->
+             <section id="manage-users" class="details">
+                <span><h2>Manage Users <a href="{{ url_for('admin_create_user') }}" class="btn btn-primary">
+                    Add New User
+                </a></h2></span>
+               
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>User Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.user_type }}</td>
+                                <td>
+                                    <a href="{{ url_for('edit_user', user_id=user.id) }}">Edit</a>
+                                    {#<form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                                        {{ form.hidden_tag() }}
+                                        <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>#}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+ <!-- Manage Bookings -->
+ <section id="manage-bookings" class="details">
+    <h2>Manage Bookings</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Client</th>
+                <th>Professional</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.id }}</td>
+                <td>{{ booking.client.name }}</td>
+                <td>{{ booking.professional.name }}</td>
+                <td>{{ booking.status }}</td>
+                
+                <td>
+                    <form method="POST" action="{{ url_for('admin_dashboard') }}">
+                        {{ form.hidden_tag() }}
+                        <input type="hidden" name="booking_id" value="{{ booking.id }}">  <!-- Hidden input for booking ID -->
+                       
+                        <select name="status" class="">
+                            <option value="pending" {% if booking.status == "pending" %}selected{% endif %}>Pending</option>
+                            <option value="accepted" {% if booking.status == "accepted" %}selected{% endif %}>Accepted</option>
+                            <option value="rejected" {% if booking.status == "rejected" %}selected{% endif %}>Rejected</option>
+                        </select>
+                        <button type="submit" class="btn1 btn-primary btn-sm">Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+            <!-- Manage Categories -->
+            <section id="manage-categories" class="details">
+                <h2>Manage Categories 
+                    <a href="{{ url_for('admin_create_category') }}" class="btn btn-secondary">Create New Category</a>
+                </h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                            <tr>
+                                <td>{{ category.id }}</td>
+                                <td>{{ category.name }}</td>
+                                <td>{% set words = category.description.split() %}
+                                    {{ ' '.join(words[:20]) }}{% if words|length > 20 %}...{% endif %}</td>
+                               {# <td>
+                                    <a href="#">Edit</a> |
+                                    <a href="#" onclick="return confirm('Are you sure?')">Delete</a>
+                                </td>#}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+            
+           
+
+            
+        </div>
+    </div>
+   
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{# {% block custom_styles %}  
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+{% endblock %} #}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.client.name }}</td>
+            <td>{{ booking.booking_date }}</td>
+            <td>{{ booking.booking_time }}</td>
+            <td>{{ booking.status }}</td>
+            <td>
+                <form action="{{ url_for('update_booking', booking_id=booking.id) }}" method="POST">
+                    <select name="status">
+                        <option value="confirmed">Confirm</option>
+                        <option value="cancelled">Cancel</option>
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{%endblock%}

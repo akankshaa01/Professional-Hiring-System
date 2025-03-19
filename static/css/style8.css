@@ -1,0 +1,126 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.dashboard {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #002349;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+}
+
+.sidebar-links {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar-links li {
+    margin: 10px 0;
+}
+
+.sidebar-links a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.sidebar-links a:hover {
+    background-color: #1a3b6c;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.dashboard-header {
+    border-bottom: 2px solid #002349;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.profile-overview, .booking-overview, .recent-activity {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #002349;
+    margin-bottom: 10px;
+}
+
+.profile-details p {
+    margin: 5px 0;
+}
+
+.booking-cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.booking-card {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    width: 30%;
+    text-align: center;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #002349;
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: #ddd;
+    color: #002349;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    opacity: 0.8;
+}

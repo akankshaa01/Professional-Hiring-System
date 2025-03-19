@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block custom_styles %}
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+{% endblock %}
+{% block content %}
+<div class="container-edit ">
+          
+            
+                <div class="form-header text-center ">
+                    <h1>Edit Profile</h1>
+                </div>
+                <div class="form-body ">
+                    <form method="POST" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+                        
+                        <!-- Basic Details -->
+                        <h5 class="text-heading">Basic Details</h5>
+                        <hr>
+                        <div class="form-group mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            {{ form.username(class="form-control", readonly=True) }}
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            {{ form.name(class="form-control") }}
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            {{ form.email(class="form-control") }}
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="phone_number" class="form-label">Phone Number</label>
+                            {{ form.phone_number(class="form-control") }}
+                        </div>
+
+                        <!-- Additional Details -->
+                        <h5 class="text-heading">Additional Details</h5>
+                        <hr>
+                        <div class="form-group mb-3">
+                            <label for="date_of_birth" class="form-label">Date of Birth</label>
+                            {{ form.date_of_birth(class="form-control", type="date") }}
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="gender" class="form-label">Gender</label>
+                            {{ form.gender(class="form-select") }}
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            {{ form.address(class="form-control") }}
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="profile_picture" class="form-label">Upload New Profile Picture</label>
+                            {{ form.profile_picture(class="form-control", type="file") }}
+                        </div>
+
+                        {% if current_user.user_type == 'professional' %}
+                        <!-- Professional-Specific Fields -->
+                        <h5 class="text-heading">Professional Details</h5>
+                        <hr>
+                        <div class="form-group mb-3">
+                            <label for="bio" class="form-label">Bio</label>
+                            {{ form.bio(class="form-control", rows=3) }}
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="experience" class="form-label">Years of Experience</label>
+                            {{ form.experience(class="form-control") }}
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="category_id" class="form-label">Category</label>
+                            {{ form.category_id(class="form-select") }}
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="availability_status" class="form-label">Availability</label>
+                            {{ form.availability_status(class="form-select") }}
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="profile_picture" class="form-label">Upload New Profile Picture</label>
+                            {{ form.profile_picture(class="form-control", type="file") }}
+                        </div>
+                        {% endif %}
+
+                        <!-- Save Button -->
+                        <div class="text-center">
+                            <button type="submit" class="button">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        
+   
+
+{% endblock %}

@@ -1,0 +1,74 @@
+.form-container {
+    width: 75%; /* Make the form container occupy 75% of the screen width */
+    margin: auto; /* Center the container */
+}
+
+.card {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #002349, #001a36);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.card-body {
+    padding: 3rem;
+}
+
+label {
+    font-weight: 500;
+    color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="file"],
+select,
+textarea {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+    padding: 0.75rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #002349;
+    box-shadow: 0 0 5px rgba(0, 35, 73, 0.4);
+}
+
+textarea {
+    resize: none;
+}
+
+button[type="submit"] {
+    background-color: #002349;
+    color: white;
+    font-weight: bold;
+    padding: 0.8rem;
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    border: none;
+}
+
+button[type="submit"]:hover {
+    background-color: #001a36;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+img.img-thumbnail {
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    transition: transform 0.3s ease;
+}
+
+img.img-thumbnail:hover {
+    transform: scale(1.1);
+    border-color: #002349;
+}

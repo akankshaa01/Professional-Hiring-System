@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block custom_styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style7.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="profile-picture">
+                <img src="{{ url_for('static', filename='media/profile_pics/' + user_profile.profile_picture) }}" 
+                     alt="{{ user_profile.name }}'s Profile Picture" class="profile-img">
+            </div>
+            <ul>
+                <li><a href="{{ url_for('user_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('bookings') }}">My Bookings</a></li>
+                <li><a href="{{ url_for('edit_profile') }}">Edit Profile</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+             <!-- Header -->
+             <header>
+                <div>
+                    <h1>Welcome, {{ user_profile.name }}</h1>
+                </div>
+                <div class="dashboard-subtitle">Welcome to your dashboard! Explore your bookings and manage your profile.</div>
+            </header>
+            <!-- Professional Dashboard -->
+            {% if user_type == 'professional' %}
+                <div class="profile-details">
+                    <!-- About Section -->
+                    <div class="section about">
+                        <h2>About</h2>
+                        <p>{{ user_profile.bio or "No bio available." }}</p>
+                    </div>
+
+                    <!-- Personal Info Section -->
+                    <div class="section personal-info">
+                        <h2>Personal Info</h2>
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{ user_profile.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date of Birth</th>
+                                <td>{{ user_profile.date_of_birth }}</td>
+                            </tr>
+                            <tr>
+                                <th>Address</th>
+                                <td>{{ user_profile.address }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ user_profile.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone</th>
+                                <td>{{ user_profile.phone_number }}</td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td>{{ user_profile.gender }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Work Info Section -->
+                    <div class="section work-info">
+                        <h2>Work Info</h2>
+                        <table>
+                            <tr>
+                                <th>Category</th>
+                                <td>{{ user_profile.category.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Experience</th>
+                                <td>{{ user_profile.experience }} years</td>
+                            </tr>
+                            <tr>
+                                <th>Availability Status</th>
+                                <td>{{ user_profile.availability_status }}</td>
+                            </tr>
+                            <tr>
+                                <th>Total Bookings Completed</th>
+                                <td>{{ user_profile.total_bookings_completed or 0 }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            <!-- Client Dashboard -->
+            {% elif user_type == 'client' %}
+                <div class="profile-details">
+                    <!-- Personal Info Section -->
+                    <div class="section personal-info">
+                        <h2>Personal Info</h2>
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{ user_profile.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ user_profile.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone</th>
+                                <td>{{ user_profile.phone_number }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date Of Birth</th>
+                                <td>{{ user_profile.date_of_birth }}</td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td>{{ user_profile.gender }}</td>
+                            </tr>
+                            <tr>
+                                <th>Address</th>
+                                <td>{{ user_profile.address }}</td>
+                            </tr>
+                            
+                        </table>
+                    </div>
+
+                    
+                </div>
+            {% else %}
+                <!-- Fallback Message -->
+                <p>Welcome, {{ current_user.name }}! Your dashboard is under construction.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+    <!-- Header -->
+    <header>
+        <h1>Welcome, {{ current_user.name }}</h1>
+    </header>
