@@ -20,8 +20,13 @@ import os
 import secrets
 from PIL import Image
 from sqlalchemy import desc
-
+import pymysql
 from dotenv import load_dotenv
+
+
+pymysql.install_as_MySQLdb()
+
+
 load_dotenv()
 
 app = Flask(__name__)
