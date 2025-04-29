@@ -4,6 +4,8 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Enum,func
 from datetime import datetime,timezone
+import pymysql
+pymysql.install_as_MySQLdb()
 
 db = SQLAlchemy()
 bcrypt=Bcrypt()
